@@ -53,6 +53,8 @@ A complete guess must always contain five letters. Press Enter after all five le
 
         word_bank = new_word_bank
 
+        guesses += 1
+
 
 def generate_word_bank(input_file: str) -> dict[str, int]:
     """
