@@ -125,7 +125,7 @@ def get_user_input(word_bank):
         color = 0
         while len(target) < 5:
             val = term.inkey()
-            if val == '\n':
+            if val == '\n' or val.code == term.KEY_ENTER:
                 if last_letter != '':
                     print(f"{term.move_right}", end='', flush=True)
 
