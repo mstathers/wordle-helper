@@ -36,20 +36,33 @@ A complete guess must always contain five letters. Press Enter after all five le
 
         # Generate Regex patterns based on the guess ledger.
         re_pat = '^'
-        yellow_pat = ''
+        yellows = None
         for guess_idx, guess in enumerate(guess_ledger):
+            # We'll save the yellow letters for later
             if guess_idx == 5:
                 if guess:
-                    yellow_pat = '[' + ''.join(guess) + ']'
+                    yellows = guess
             else:
                 re_pat += '[' + ''.join(guess) + ']'
         re_pat += '$'
 
         # Apply the regex patterns to the word bank to trim it down.
+        # Go through each word:
+        #  1) check if the regex patern matches
+        #  2) Check word for each yellow letter. If no match, unset flag
+        #  3) If flag still set, save word to updated word bank
         new_word_bank = {}
         for word, score in word_bank.items():
-            if re.match(re_pat, word) and re.search(yellow_pat, word):
-                new_word_bank[word] = score
+            yellow_check = True
+            if re.match(re_pat, word):
+                if yellows:
+                    for y_letter in yellows:
+                        if y_letter not in word:
+                            yellow_check = False
+                            break
+
+                if yellow_check:
+                    new_word_bank[word] = score
 
         word_bank = new_word_bank
 
