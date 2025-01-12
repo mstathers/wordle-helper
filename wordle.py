@@ -95,15 +95,16 @@ def suggest_some_words(w_bank):
     """
     sorted_w_bank = sorted(w_bank.keys(), key=w_bank.get, reverse=True)
 
+    if len(sorted_w_bank) == 1:
+        print(f"\nCongrats! Final guess: {sorted_w_bank[0]}")
+        sys.exit()
+
     print("\nWord suggestions:")
 
     if len(sorted_w_bank) > 3:
         print(f"{sorted_w_bank[0]}")
         print(f"{sorted_w_bank[1]}")
         print(f"{sorted_w_bank[2]}")
-    elif len(sorted_w_bank) == 1:
-        print(f"Congrats! Final guess: {sorted_w_bank[0]}")
-        sys.exit()
     else:
         for word in sorted_w_bank:
             print(word)
